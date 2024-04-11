@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject PlayerBullet;
+    public GameObject BulletPos;
+
 
     //Movement control
     public float moveSpeed;
@@ -20,6 +23,12 @@ public class PlayerMovement : MonoBehaviour
     {
         InputManagement();
 
+        //Shoot bullet upon pressing left mouse button
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject bullet = (GameObject)Instantiate(PlayerBullet);
+            bullet.transform.position = BulletPos.transform.position; //Set the bullet's initial position
+        }
     }
     private void FixedUpdate()
     {
