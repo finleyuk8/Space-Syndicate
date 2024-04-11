@@ -12,19 +12,27 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        targetGameobject = targetDestination.gameObject;
+        targetGameobject = GameObject.FindWithTag("Player");
+        if (targetGameobject == null)
+        {
+            Debug.LogError("Player GameObject not found!");
+        }
     }
+
     private void FixedUpdate()
     {
-        Vector3 direction = (targetDestination.position - transform.position).normalized;
-        rb.velocity = direction * moveSpeed;
+        if (targetGameobject != null)
+        {
+            Vector3 direction = (targetGameobject.transform.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject == targetGameobject)
+        if (collision.gameObject.CompareTag("Player"))
         {
-           Attack();
+            Attack();
         }
     }
 
