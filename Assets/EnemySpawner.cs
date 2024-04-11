@@ -13,14 +13,9 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Check if spawnLayers array is empty
-        if (spawnLayers.Length == 0)
-        {
-            Debug.LogError("Spawn layers array is empty. Please assign at least one Y position.");
-            return;
-        }
+       
 
-        InvokeRepeating("SpawnEnemy", spawnTime, spawnTime); // Spawn the enemy after a delay (spawnTime) and repeat
+        InvokeRepeating("SpawnEnemy", spawnTime, spawnTime); // Spawn the enemy after a delay and repeat
     }
 
     // Update is called once per frame
