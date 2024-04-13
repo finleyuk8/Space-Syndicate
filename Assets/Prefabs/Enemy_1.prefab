@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 6790200951313718534, guid: d26e7f39646336f4ab3512806f786e8c, type: 3}
+  minFireRate: 1.5
+  maxFireRate: 3
 --- !u!1 &4293711236832689660
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,4 +242,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDestination: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 10
