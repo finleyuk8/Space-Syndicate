@@ -44,14 +44,5 @@ public class EnemyBullet : MonoBehaviour
 
         
     }
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        //Detect collision with the Player
-        if (col.tag == "Player")
-        {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
-            Debug.Log("Enemy Bullet Destroyed.");
-        }
-    }
+    
 }

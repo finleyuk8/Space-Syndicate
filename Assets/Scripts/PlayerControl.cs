@@ -7,15 +7,18 @@ public class PlayerMovement : MonoBehaviour
     public GameObject PlayerBullet;
     public GameObject BulletPos;
 
-
     //Movement control
     public float moveSpeed;
+    public int maxHealth = 3; // Maximum health of the player
+    int currentHealth; // Current health of the player
     Rigidbody2D rb;
     Vector2 moveDirection;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth; // Initialize current health to max health
     }
 
     // Update is called once per frame
@@ -26,10 +29,11 @@ public class PlayerMovement : MonoBehaviour
         //Shoot bullet upon pressing left mouse button
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject bullet = (GameObject)Instantiate(PlayerBullet);
+            GameObject bullet = Instantiate(PlayerBullet);
             bullet.transform.position = BulletPos.transform.position; //Set the bullet's initial position
         }
     }
+
     private void FixedUpdate()
     {
         Move();
@@ -53,10 +57,15 @@ public class PlayerMovement : MonoBehaviour
         if (col.tag == "EnemyBullet")
         {
             Destroy(col.gameObject);
-            Destroy(gameObject);
-            Debug.Log("Player ship destroyed.");
+            currentHealth--; // Decrease player's current health
+            Debug.Log("Player hit by enemy bullet. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
         }
     }
-
 }
 
