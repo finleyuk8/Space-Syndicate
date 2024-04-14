@@ -41,5 +41,17 @@ public class EnemyBullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //Detect collision with the enemy
+        if (col.tag == "Player")
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+            Debug.Log("Player ship destroyed.");
+        }
     }
 }
