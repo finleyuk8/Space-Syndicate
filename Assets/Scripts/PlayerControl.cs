@@ -47,7 +47,16 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
     }
 
-  
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //Detect collision with the enemy bullet
+        if (col.tag == "EnemyBullet")
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+            Debug.Log("Player ship destroyed.");
+        }
+    }
 
 }
 

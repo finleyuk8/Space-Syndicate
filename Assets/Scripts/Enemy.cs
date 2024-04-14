@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -28,16 +29,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        //Detect collision with the player bullet
+        if (col.tag == "PlayerBullet")
         {
-            Attack();
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+            Debug.Log("Enemy ship destroyed.");
         }
     }
 
-    private void Attack()
-    {
-        Debug.Log("Attacking");
-    }
 }

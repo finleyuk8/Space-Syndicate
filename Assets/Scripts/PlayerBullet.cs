@@ -37,7 +37,7 @@ public class PlayerBullet : MonoBehaviour
         {
             Destroy(col.gameObject);
             Destroy(gameObject);
-            Debug.Log("Enemy ship destroyed.");
+            Debug.Log("Player Bullet Destroyed.");
         }
     }
 }
