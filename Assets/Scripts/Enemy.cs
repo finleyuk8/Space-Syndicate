@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float moveSpeed;
     GameObject targetGameobject;
     Rigidbody2D rb;
+    public GameObject Explosion;
 
     private void Awake()
     {
@@ -34,10 +35,18 @@ public class Enemy : MonoBehaviour
         //Detect collision with the player bullet
         if (col.tag == "PlayerBullet")
         {
+            ExplosionAnimation();
             Destroy(col.gameObject);
             Destroy(gameObject);
             Debug.Log("Enemy ship destroyed.");
         }
     }
+
+    void ExplosionAnimation()
+    {
+        GameObject explosion = (GameObject)Instantiate(Explosion);
+        Explosion.transform.position = transform.position;
+    }
+
 
 }

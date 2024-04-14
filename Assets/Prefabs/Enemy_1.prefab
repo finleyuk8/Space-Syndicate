@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDestination: {fileID: 0}
   moveSpeed: 10
+  Explosion: {fileID: 78461371900559152, guid: 94570456aa0eb45449e9fb30f93b617a, type: 3}
 --- !u!61 &8658797286865526324
 BoxCollider2D:
   m_ObjectHideFlags: 0
