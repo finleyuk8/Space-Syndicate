@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] Transform targetDestination;
     [SerializeField] float moveSpeed;
+    [SerializeField] int maxHealth = 3; // Maximum health of the enemy
+    int currentHealth; // Current health of the enemy
     GameObject targetGameobject;
     Rigidbody2D rb;
     public GameObject Explosion;
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Player GameObject not found!");
         }
         layer = transform.position.y; // Store the Y position of the layer the enemy spawns in
+        currentHealth = maxHealth; // Initialize current health to max health
     }
 
     private void FixedUpdate()
@@ -33,19 +36,31 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Detect collision with the player bullet
+        // Detect collision with the player bullet
         if (col.tag == "PlayerBullet")
         {
-            ExplosionAnimation();
+            Debug.Log("Enemy hit by bullet.");
+            currentHealth--; // Decrease current health
             Destroy(col.gameObject);
-            Destroy(gameObject);
-            Debug.Log("Enemy ship destroyed.");
 
-            // Update the count of enemies in the layer
-            EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>(); // Find the EnemySpawner script
-            if (enemySpawner != null)
+            if (currentHealth <= 0)
             {
-                enemySpawner.DecrementEnemyCount(layer);
+                Destroy(gameObject); // Destroy the enemy if health reaches zero
+                Debug.Log("Enemy ship destroyed.");
+
+                // Update the count of enemies in the layer
+                EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
+                if (enemySpawner != null)
+                {
+                    enemySpawner.DecrementEnemyCount(layer);
+                }
+
+                // Play explosion animation when the enemy is destroyed
+                ExplosionAnimation();
+            }
+            else
+            {
+                Debug.Log("Enemy health: " + currentHealth);
             }
         }
     }

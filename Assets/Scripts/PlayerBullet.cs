@@ -30,14 +30,4 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        //Detect collision with the enemy
-        if (col.tag == "EnemyShip")
-        {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
-            Debug.Log("Player Bullet Destroyed.");
-        }
-    }
 }
