@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,6 +9,7 @@ public class Enemy : MonoBehaviour
     GameObject targetGameobject;
     Rigidbody2D rb;
     public GameObject Explosion;
+    private float layer; // Store the Y position of the layer the enemy spawns in
 
     private void Awake()
     {
@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("Player GameObject not found!");
         }
+        layer = transform.position.y; // Store the Y position of the layer the enemy spawns in
     }
 
     private void FixedUpdate()
@@ -39,14 +40,19 @@ public class Enemy : MonoBehaviour
             Destroy(col.gameObject);
             Destroy(gameObject);
             Debug.Log("Enemy ship destroyed.");
+
+            // Update the count of enemies in the layer
+            EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>(); // Find the EnemySpawner script
+            if (enemySpawner != null)
+            {
+                enemySpawner.DecrementEnemyCount(layer);
+            }
         }
     }
 
     void ExplosionAnimation()
     {
-        GameObject explosion = (GameObject)Instantiate(Explosion);
-        Explosion.transform.position = transform.position;
+        GameObject explosion = Instantiate(Explosion); // Instantiate the explosion
+        explosion.transform.position = transform.position; // Set the position of the explosion
     }
-
-
 }

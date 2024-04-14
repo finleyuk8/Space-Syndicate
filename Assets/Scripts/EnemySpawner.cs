@@ -48,4 +48,11 @@ public class EnemySpawner : MonoBehaviour
                 enemyCounts[targetLayer] = 1;
         }
     }
+    public void DecrementEnemyCount(float layer)
+    {
+        if (enemyCounts.ContainsKey(layer))
+        {
+            enemyCounts[layer]--;
+        }
+    }
 }
