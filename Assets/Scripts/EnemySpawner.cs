@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemy;
-    public float spawnTime = 2f; // Reduced spawn time
+    public float spawnTime = 2f; // Set the enemies spawn time
     public GameObject leftBound; // Left boundary object
     public GameObject rightBound; // Right boundary object
-    public float[] spawnLayers; // Array of possible Y positions
+    public float[] spawnLayers; // Array of possible Y positions depending on the number of layers
     public int maxEnemiesPerLayer = 5; // Maximum number of enemies per layer
     private Dictionary<float, int> enemyCounts = new Dictionary<float, int>(); // Track the number of enemies per layer
 
@@ -16,12 +16,6 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnEnemy", spawnTime, spawnTime); // Spawn the enemy after a delay and repeat
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     // Spawn enemy between left and right bounds
@@ -48,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
                 enemyCounts[targetLayer] = 1;
         }
     }
-    public void DecrementEnemyCount(float layer)
+    public void DecrementEnemyCount(float layer) // Decrement the enemy count when an enemy is destroyed
     {
         if (enemyCounts.ContainsKey(layer))
         {

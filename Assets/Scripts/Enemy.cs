@@ -22,12 +22,8 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         targetGameobject = GameObject.FindWithTag("Player");
-        if (targetGameobject == null)
-        {
-            Debug.LogError("Player GameObject not found!");
-        }
-        layer = transform.position.y; // Store the Y position of the layer the enemy spawns in
-        currentHealth = maxHealth; // Initialize current health to max health
+        layer = transform.position.y;
+        currentHealth = maxHealth; // Set current health to max health
     }
 
     private void FixedUpdate()
@@ -46,7 +42,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy hit by bullet.");
             currentHealth--; // Decrease current health
-            Destroy(col.gameObject);
+            Destroy(col.gameObject); //Destroy the enemy
 
             if (currentHealth <= 0)
             {
@@ -86,7 +82,7 @@ public class Enemy : MonoBehaviour
         }
             else
             {
-                Debug.Log("Enemy health: " + currentHealth);
+                Debug.Log("Enemy health: " + currentHealth); //If enemy is not destroyed, log the current health
             }
         }
     }
@@ -94,7 +90,7 @@ public class Enemy : MonoBehaviour
     void ExplosionAnimation()
     {
         GameObject explosion = Instantiate(Explosion); // Instantiate the explosion
-        explosion.transform.position = transform.position; // Set the position of the explosion
+        explosion.transform.position = transform.position; // Set the position of the explosion at the enemy's position
     }
 
     void DropBulletPickup()

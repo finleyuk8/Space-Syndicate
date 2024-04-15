@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float speed;
-
-    void Start()
-    {
-        
-    }
+    public float speed; // Speed of the bullet
 
     // Update is called once per frame
     void Update()

@@ -29,8 +29,6 @@ public class PlayerMovement : MonoBehaviour
         remainingBullets = maxBullets; // Initialize remaining bullets
     }
 
-    // Update is called once per frame
-    // Update is called once per frame
     void Update()
     {
         InputManagement();
@@ -65,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        Move(); // Move the player
     }
 
     void InputManagement() // Get the input from the player
@@ -116,15 +114,15 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Infinite Ammo Activated"); // Debug log infinite ammo activation
     }
 
-    // Method to add bullets
+
     public void AddBullets(int amount)
     {
-        remainingBullets += amount;
+        remainingBullets += amount; // Add bullets to the player's remaining bullets
     }
 
     public void RestoreHealth(float amount)
     {
-        currentHealth += (int)amount; // Convert amount to int
+        currentHealth += (int)amount;
         // Ensure health doesn't exceed max health
         currentHealth = Mathf.Min(currentHealth, maxHealth);
         Debug.Log("Player health restored. Current health: " + currentHealth);
