@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Debug log the remaining bullets count
-        Debug.Log("Remaining Bullets: " + remainingBullets);
+        //Debug.Log("Remaining Bullets: " + remainingBullets);
     }
 
     private void FixedUpdate()
@@ -79,5 +79,13 @@ public class PlayerMovement : MonoBehaviour
     public void AddBullets(int amount)
     {
         remainingBullets += amount;
+    }
+
+    public void RestoreHealth(float amount)
+    {
+        currentHealth += (int)amount; // Convert amount to int
+        // Ensure health doesn't exceed max health
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+        Debug.Log("Player health restored. Current health: " + currentHealth);
     }
 }
