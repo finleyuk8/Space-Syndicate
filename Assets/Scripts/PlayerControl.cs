@@ -7,10 +7,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject PlayerBullet;
     public GameObject BulletPos;
 
-    //Movement control
+    // Movement control
     public float moveSpeed;
     public int maxHealth = 3; // Maximum health of the player
     int currentHealth; // Current health of the player
+    public int maxBullets = 30; // Maximum number of bullets
+    int remainingBullets; // Number of bullets remaining
     Rigidbody2D rb;
     Vector2 moveDirection;
 
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth; // Initialize current health to max health
+        remainingBullets = maxBullets; // Initialize remaining bullets
     }
 
     // Update is called once per frame
@@ -26,12 +29,16 @@ public class PlayerMovement : MonoBehaviour
     {
         InputManagement();
 
-        //Shoot bullet upon pressing left mouse button
-        if (Input.GetMouseButtonDown(0))
+        // Shoot bullet upon pressing left mouse button if there are remaining bullets
+        if (Input.GetMouseButtonDown(0) && remainingBullets > 0)
         {
             GameObject bullet = Instantiate(PlayerBullet);
-            bullet.transform.position = BulletPos.transform.position; //Set the bullet's initial position
+            bullet.transform.position = BulletPos.transform.position; // Set the bullet's initial position
+            remainingBullets--; // Reduce remaining bullets
         }
+
+        // Debug log the remaining bullets count
+        Debug.Log("Remaining Bullets: " + remainingBullets);
     }
 
     private void FixedUpdate()
@@ -39,21 +46,21 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    void InputManagement() //Get the input from the player
+    void InputManagement() // Get the input from the player
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
-    void Move() //Move the player
+    void Move() // Move the player
     {
         rb.velocity = moveDirection * moveSpeed;
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Detect collision with the enemy bullet
+        // Detect collision with the enemy bullet
         if (col.tag == "EnemyBullet")
         {
             Destroy(col.gameObject);
