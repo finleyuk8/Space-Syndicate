@@ -74,5 +74,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-}
 
+    // Method to add bullets
+    public void AddBullets(int amount)
+    {
+        remainingBullets += amount;
+    }
+}

@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     GameObject targetGameobject;
     Rigidbody2D rb;
     public GameObject Explosion;
+    public GameObject BulletPickupPrefab; // Bullet pickup prefab
+    public float pickupMoveSpeed = 5f; // Speed of the bullet pickup movement towards the player
     private float layer; // Store the Y position of the layer the enemy spawns in
 
     private void Awake()
@@ -57,6 +59,13 @@ public class Enemy : MonoBehaviour
 
                 // Play explosion animation when the enemy is destroyed
                 ExplosionAnimation();
+
+                // Random chance to drop a bullet pickup
+                float dropChance = Random.Range(1, 6); // Random value between 1 and 5
+                if (dropChance == 1) // Adjust this value to change the drop chance
+                {
+                    DropBulletPickup();
+                }
             }
             else
             {
@@ -69,5 +78,18 @@ public class Enemy : MonoBehaviour
     {
         GameObject explosion = Instantiate(Explosion); // Instantiate the explosion
         explosion.transform.position = transform.position; // Set the position of the explosion
+    }
+
+    void DropBulletPickup()
+    {
+        // Instantiate the bullet pickup at the enemy's position
+        GameObject bulletPickup = Instantiate(BulletPickupPrefab, transform.position, Quaternion.identity);
+
+        // Get the direction towards the player
+        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized;
+
+        // Add force to make the bullet pickup move towards the player
+        Rigidbody2D rb = bulletPickup.GetComponent<Rigidbody2D>();
+        rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);
     }
 }
