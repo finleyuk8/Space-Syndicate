@@ -7,6 +7,7 @@ TagManager:
   - EnemyShip
   - PlayerBullet
   - EnemyBullet
+  - InfiniteAmmoPickup
   layers:
   - Default
   - TransparentFX

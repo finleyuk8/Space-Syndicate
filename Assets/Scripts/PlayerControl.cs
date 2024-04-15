@@ -16,6 +16,11 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Vector2 moveDirection;
 
+    // Infinite ammo control
+    bool hasInfiniteAmmo = false;
+    float infiniteAmmoDuration = 15f;
+    float currentInfiniteAmmoTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,20 +30,37 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         InputManagement();
 
-        // Shoot bullet upon pressing left mouse button if there are remaining bullets
-        if (Input.GetMouseButtonDown(0) && remainingBullets > 0)
+        // Shoot bullet upon pressing left mouse button if there are remaining bullets or if player has infinite ammo
+        if (Input.GetMouseButtonDown(0) && (remainingBullets > 0 || hasInfiniteAmmo))
         {
             GameObject bullet = Instantiate(PlayerBullet);
             bullet.transform.position = BulletPos.transform.position; // Set the bullet's initial position
-            remainingBullets--; // Reduce remaining bullets
+
+            if (!hasInfiniteAmmo)
+                remainingBullets--; // Reduce remaining bullets only if not in infinite ammo mode
+
+            Debug.Log("Remaining Bullets: " + remainingBullets); // Debug log remaining bullets count
         }
 
-        // Debug log the remaining bullets count
-        //Debug.Log("Remaining Bullets: " + remainingBullets);
+        // Update infinite ammo duration
+        if (hasInfiniteAmmo)
+        {
+            currentInfiniteAmmoTime -= Time.deltaTime;
+            if (currentInfiniteAmmoTime <= 0)
+            {
+                hasInfiniteAmmo = false;
+                // Reset the player's ammo to a default value
+            }
+            else
+            {
+                Debug.Log("Infinite Ammo Active. Time Remaining: " + currentInfiniteAmmoTime); // Debug log infinite ammo status and remaining time
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -73,6 +95,25 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ship destroyed.");
             }
         }
+
+        // Handle collision with pickup objects
+        if (col.CompareTag("InfiniteAmmoPickup"))
+        {
+            // Activate infinite ammo effect
+            ActivateInfiniteAmmo();
+            // Destroy the pickup
+            Destroy(col.gameObject);
+            Debug.Log("Infinite Ammo Pickup Collected"); // Debug log pickup collection
+        }
+        // Add more conditions for other pickups if needed
+    }
+
+    // Method to activate infinite ammo pickup effect
+    public void ActivateInfiniteAmmo()
+    {
+        hasInfiniteAmmo = true;
+        currentInfiniteAmmoTime = infiniteAmmoDuration;
+        Debug.Log("Infinite Ammo Activated"); // Debug log infinite ammo activation
     }
 
     // Method to add bullets

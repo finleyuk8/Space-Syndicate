@@ -12,9 +12,11 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rb;
     public GameObject Explosion;
     public GameObject BulletPickupPrefab; // Bullet pickup prefab
+    public GameObject HealthPickupPrefab; // Health pickup prefab
+    public GameObject InfiniteAmmoPickupPrefab; // Infinite ammo pickup prefab
     public float pickupMoveSpeed = 5f; // Speed of the bullet pickup movement towards the player
     private float layer; // Store the Y position of the layer the enemy spawns in
-    public GameObject HealthPickupPrefab; // Health pickup prefab
+    
 
     private void Awake()
     {
@@ -64,6 +66,7 @@ public class Enemy : MonoBehaviour
                 // Random chance to drop a bullet pickup
                 float bulletDropChance = Random.Range(1, 6); // Random value between 1 and 5 for bullet pickup
                 float healthDropChance = Random.Range(1, 11); // Random value between 1 and 10 for health pickup
+                float infiniteAmmoDropChance = Random.Range(1, 16); // Random value between 1 and 20 for infinite ammo pickup
 
                 if (bulletDropChance == 1) // Adjust this value to change the drop chance for bullets
                 {
@@ -73,6 +76,11 @@ public class Enemy : MonoBehaviour
                 if (healthDropChance == 1) // Adjust this value to change the drop chance for health pickups
                 {
                     DropHealthPickup();
+                }
+
+                if (infiniteAmmoDropChance == 1) // Adjust this value to change the drop chance for infinite ammo pickups
+                {
+                    DropInfiteAmmo();
                 }
             
         }
@@ -112,6 +120,19 @@ public class Enemy : MonoBehaviour
 
         // Add force to make the health pickup move towards the player
         Rigidbody2D rb = healthPickup.GetComponent<Rigidbody2D>();
+        rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);
+    }
+
+    void DropInfiteAmmo()
+    {
+        // Instantiate the infinite pickup at the enemy's position
+        GameObject infiniteAmmoPickup = Instantiate(InfiniteAmmoPickupPrefab, transform.position, Quaternion.identity);
+
+        // Get the direction towards the player
+        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized;
+
+        // Add force to make the infinite ammo pickup move towards the player
+        Rigidbody2D rb = infiniteAmmoPickup.GetComponent<Rigidbody2D>();
         rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);
     }
 }
