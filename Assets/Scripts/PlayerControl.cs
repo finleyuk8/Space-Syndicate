@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public GameObject PlayerBullet;
     public GameObject BulletPos;
-
-    // Movement control
     public float moveSpeed;
     public float maxHealth = 3; // Maximum health of the player
     float currentHealth; // Current health of the player
@@ -20,20 +18,18 @@ public class PlayerMovement : MonoBehaviour
     bool hasInfiniteAmmo = false;
     float infiniteAmmoDuration = 15f;
     float currentInfiniteAmmoTime = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth; // Initialize current health to max health
-        remainingBullets = maxBullets; // Initialize remaining bullets
+        currentHealth = maxHealth; // set the current health to the maximum health
+        remainingBullets = maxBullets; // set the remaining bullets to the maximum bullets
     }
-
     void Update()
     {
         InputManagement();
 
-        // Shoot bullet upon pressing left mouse button if there are remaining bullets or if player has infinite ammo
+        // Shoot bullet upon pressing left mouse button if player has bullets or infinite ammo
         if (Input.GetMouseButtonDown(0) && (remainingBullets > 0 || hasInfiniteAmmo))
         {
             GameObject bullet = Instantiate(PlayerBullet);
@@ -123,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ship destroyed.");
             }
         }
-
         // Detect collision with the boss bullet
         else if (col.tag == "Fireball")
         {
@@ -137,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ship destroyed.");
             }
         }
-
         else if (col.tag == "EnemyShip")
         {
             
@@ -163,15 +157,13 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ship destroyed.");
             }
         }
-
         // Handle collision with pickup objects
         if (col.CompareTag("InfiniteAmmoPickup"))
         {
             // Activate infinite ammo effect
             ActivateInfiniteAmmo();
-            // Destroy the pickup
             Destroy(col.gameObject);
-            Debug.Log("Infinite Ammo Pickup Collected"); // Debug log pickup collection
+            Debug.Log("Infinite Ammo Pickup Collected"); 
         }
     }
 
@@ -180,19 +172,16 @@ public class PlayerMovement : MonoBehaviour
     {
         hasInfiniteAmmo = true;
         currentInfiniteAmmoTime = infiniteAmmoDuration;
-        Debug.Log("Infinite Ammo Activated"); // Debug log infinite ammo activation
+        Debug.Log("Infinite Ammo Activated"); 
     }
-
-
     public void AddBullets(int amount)
     {
         remainingBullets += amount; // Add bullets to the player's remaining bullets
     }
-
     public void RestoreHealth(float amount)
     {
         currentHealth += (int)amount;
-        // Ensure health doesn't exceed max health
+        // Make sure health does not exceed the maax
         currentHealth = Mathf.Min(currentHealth, maxHealth);
         Debug.Log("Player health restored. Current health: " + currentHealth);
     }

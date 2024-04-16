@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] Transform targetDestination;
     [SerializeField] float moveSpeed;
-    [SerializeField] int maxHealth = 3; // Maximum health of the enemy
+    [SerializeField] int maxHealth; // Maximum health of the enemy
     int currentHealth; // Current health of the enemy
     GameObject targetGameobject;
     Rigidbody2D rb;
@@ -64,17 +64,17 @@ public class Enemy : MonoBehaviour
                 float healthDropChance = Random.Range(1, 11); // Random value between 1 and 10 for health pickup
                 float infiniteAmmoDropChance = Random.Range(1, 16); // Random value between 1 and 20 for infinite ammo pickup
 
-                if (bulletDropChance == 1) // Adjust this value to change the drop chance for bullets
+                if (bulletDropChance == 1) // value to change the drop chance for bullets
                 {
                     DropBulletPickup();
                 }
 
-                if (healthDropChance == 1) // Adjust this value to change the drop chance for health pickups
+                if (healthDropChance == 1) // value to change the drop chance for health pickups
                 {
                     DropHealthPickup();
                 }
 
-                if (infiniteAmmoDropChance == 1) // Adjust this value to change the drop chance for infinite ammo pickups
+                if (infiniteAmmoDropChance == 1) // value to change the drop chance for infinite ammo pickups
                 {
                     DropInfiteAmmo();
                 }
@@ -95,12 +95,8 @@ public class Enemy : MonoBehaviour
 
     void DropBulletPickup()
     {
-        // Instantiate the bullet pickup at the enemy's position
-        GameObject bulletPickup = Instantiate(BulletPickupPrefab, transform.position, Quaternion.identity);
-
-        // Get the direction towards the player
-        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized;
-
+        GameObject bulletPickup = Instantiate(BulletPickupPrefab, transform.position, Quaternion.identity); // Instantiate the bullet pickup at the enemy's position
+        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized; // Get the direction towards the player
         // Add force to make the bullet pickup move towards the player
         Rigidbody2D rb = bulletPickup.GetComponent<Rigidbody2D>();
         rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);
@@ -108,12 +104,8 @@ public class Enemy : MonoBehaviour
 
     void DropHealthPickup()
     {
-        // Instantiate the health pickup at the enemy's position
-        GameObject healthPickup = Instantiate(HealthPickupPrefab, transform.position, Quaternion.identity);
-
-        // Get the direction towards the player
-        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized;
-
+        GameObject healthPickup = Instantiate(HealthPickupPrefab, transform.position, Quaternion.identity); // Instantiate the health pickup at the enemy's position
+        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized; // Get the direction towards the player
         // Add force to make the health pickup move towards the player
         Rigidbody2D rb = healthPickup.GetComponent<Rigidbody2D>();
         rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);
@@ -121,12 +113,8 @@ public class Enemy : MonoBehaviour
 
     void DropInfiteAmmo()
     {
-        // Instantiate the infinite pickup at the enemy's position
-        GameObject infiniteAmmoPickup = Instantiate(InfiniteAmmoPickupPrefab, transform.position, Quaternion.identity);
-
-        // Get the direction towards the player
-        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized;
-
+        GameObject infiniteAmmoPickup = Instantiate(InfiniteAmmoPickupPrefab, transform.position, Quaternion.identity); // Instantiate the infinite pickup at the enemy's position
+        Vector3 directionToPlayer = (targetGameobject.transform.position - transform.position).normalized; // Get the direction towards the player
         // Add force to make the infinite ammo pickup move towards the player
         Rigidbody2D rb = infiniteAmmoPickup.GetComponent<Rigidbody2D>();
         rb.AddForce(directionToPlayer * pickupMoveSpeed, ForceMode2D.Impulse);

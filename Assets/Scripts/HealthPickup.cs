@@ -8,19 +8,13 @@ public class HealthPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // Check if the collider belongs to the player
         {
-            // Get the PlayerMovement component from the player GameObject
-            PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
-
-            // Check if the PlayerMovement component exists
-            if (playerMovement != null)
+            PlayerMovement playerMovement = other.GetComponent<PlayerMovement>(); // Get the PlayerMovement component
+            if (playerMovement != null) // Check if the PlayerMovement component exists
             {
-                // Restore health to the player
-                playerMovement.RestoreHealth(healthRestoreAmount);
-
-                // Destroy the health pickup
-                Destroy(gameObject);
+                playerMovement.RestoreHealth(healthRestoreAmount); // Restore health to the player
+                Destroy(gameObject); // Destroy the health pickup
             }
         }
     }

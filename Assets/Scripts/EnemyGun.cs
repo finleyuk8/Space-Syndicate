@@ -11,26 +11,25 @@ public class EnemyGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FireRepeatedly());
+        StartCoroutine(FireRepeatedly()); // Start firing bullets repeatedly
     }
-
-    IEnumerator FireRepeatedly()
+    IEnumerator FireRepeatedly() // Coroutine to fire bullets repeatedly
     {
-        while (true)
+        while (true) 
         {
-            float randomFireRate = Random.Range(minFireRate, maxFireRate);
-            yield return new WaitForSeconds(randomFireRate);
+            float randomFireRate = Random.Range(minFireRate, maxFireRate); // Randomize the fire rate
+            yield return new WaitForSeconds(randomFireRate); 
             Fire();
         }
     }
 
-    void Fire()
+    void Fire() // Function to fire a bullet
     {
-        GameObject playerShip = GameObject.FindWithTag("Player");
-        if (playerShip != null)
+        GameObject playerShip = GameObject.FindWithTag("Player"); // Find the player object
+        if (playerShip != null) // Check if the player object exists
         {
-            GameObject bullet = Instantiate(enemyBullet, transform.position, Quaternion.identity);
-            Vector2 direction = playerShip.transform.position - bullet.transform.position;
+            GameObject bullet = Instantiate(enemyBullet, transform.position, Quaternion.identity); // Instantiate a bullet
+            Vector2 direction = playerShip.transform.position - bullet.transform.position; // Calculate the direction of the bullet
             bullet.GetComponent<EnemyBullet>().SetDirection(direction);
         }
     }

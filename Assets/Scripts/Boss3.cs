@@ -13,14 +13,14 @@ public class Boss3 : MonoBehaviour
     public GameObject Explosion;
     private float layer; // Store the Y position of the layer the enemy spawns in
 
-    private float dropTimer = 0f;
-    private bool dropping = false;
+    private float dropTimer = 0f; // Timer for dropping behavior
+    private bool dropping = false; // Flag to indicate if the enemy is dropping
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        targetGameobject = GameObject.FindWithTag("Player");
-        layer = transform.position.y;
+        rb = GetComponent<Rigidbody2D>(); 
+        targetGameobject = GameObject.FindWithTag("Player"); // Find the player object
+        layer = transform.position.y; // Store the Y position of the layer the enemy spawns in
         currentHealth = maxHealth; // Set current health to max health
     }
 
