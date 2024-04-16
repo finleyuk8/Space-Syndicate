@@ -498,7 +498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a21c488ca482574d97fbaaa77729745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 4293711236832689660, guid: 0907749f5051c0443920fb98c982aaa7, type: 3}
+  enemyPrefab: {fileID: 4293711236832689660, guid: 0907749f5051c0443920fb98c982aaa7, type: 3}
+  bossPrefab: {fileID: 2921036012354924888, guid: 652ef9b4df20a0c4bb97f0655c493b17, type: 3}
   spawnTime: 2
   leftBound: {fileID: 1757566030}
   rightBound: {fileID: 1137366472}
