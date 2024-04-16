@@ -11,6 +11,7 @@ TagManager:
   - BossBullet
   - Fireball
   - BossBullet2
+  - EnemyBullet3
   layers:
   - Default
   - TransparentFX

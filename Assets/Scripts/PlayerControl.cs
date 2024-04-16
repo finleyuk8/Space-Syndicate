@@ -138,6 +138,32 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        else if (col.tag == "EnemyShip")
+        {
+            
+            currentHealth -= 10f; // Decrease player's current health by 20
+            Debug.Log("Player hit by enemy ship. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
+        }
+
+        else if (col.tag == "EnemyBullet3")
+        {
+            Destroy(col.gameObject);
+            currentHealth -= 2f; // Decrease player's current health by 5
+            Debug.Log("Player hit by fireball. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
+        }
+
         // Handle collision with pickup objects
         if (col.CompareTag("InfiniteAmmoPickup"))
         {

@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8426205983946591004, guid: 1356294be93802446a95468663326e34, type: 3}
   bossPrefab: {fileID: 6217877372101034393, guid: d5688c4db7cdd6a4f810953340b96e4c, type: 3}
-  spawnTime: 2
+  spawnTime: 3
   leftBound: {fileID: 1757566030}
   rightBound: {fileID: 1137366472}
   spawnLayers:
