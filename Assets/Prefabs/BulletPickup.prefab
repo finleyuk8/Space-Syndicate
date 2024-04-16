@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aeb038e91d36840bebde0239db4831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletAmount: 15
+  bulletAmount: 20
 --- !u!50 &7641563502654663124
 Rigidbody2D:
   serializedVersion: 4

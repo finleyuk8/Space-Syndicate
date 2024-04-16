@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject Enemy;
-    public float spawnTime = 2f; // Set the enemies spawn time
-    public GameObject leftBound; // Left boundary object
-    public GameObject rightBound; // Right boundary object
-    public float[] spawnLayers; // Array of possible Y positions depending on the number of layers
-    public int maxEnemiesPerLayer = 5; // Maximum number of enemies per layer
-    private Dictionary<float, int> enemyCounts = new Dictionary<float, int>(); // Track the number of enemies per layer
+    public GameObject enemyPrefab;
+    public GameObject bossPrefab;
+    public float spawnTime = 2f;
+    public GameObject leftBound;
+    public GameObject rightBound;
+    public float[] spawnLayers;
+    public int maxEnemiesPerLayer = 5;
+    private Dictionary<float, int> enemyCounts = new Dictionary<float, int>();
 
-    // Wave parameters
     private int currentWave = 0;
     public int totalWaves = 3;
     private int[] waveEnemyCounts = { 10, 20, 30 };
 
-    // Number of enemies remaining in the current wave
-    private int enemiesRemainingInWave;
-
-    // Start is called before the first frame update
     void Start()
     {
         StartWave();
@@ -28,24 +24,29 @@ public class EnemySpawner : MonoBehaviour
 
     void StartWave()
     {
-        Debug.Log("Wave " + (currentWave + 1) + " begins!"); // Debug log indicating the start of a new wave
+        Debug.Log("Wave " + (currentWave + 1) + " begins!");
 
-        enemiesRemainingInWave = waveEnemyCounts[currentWave];
+        int enemyCount = waveEnemyCounts[currentWave];
 
-        StartCoroutine(SpawnEnemies());
+        if (currentWave == 2)
+        {
+            SpawnBoss(); // Spawn boss enemy at wave 3
+            enemyCount -= 1; // Reduce enemy count by 1 to account for boss enemy
+        }
+
+        StartCoroutine(SpawnEnemies(enemyCount));
     }
 
-    IEnumerator SpawnEnemies()
+    IEnumerator SpawnEnemies(int count)
     {
-        while (enemiesRemainingInWave > 0)
+        while (count > 0)
         {
             SpawnEnemy();
-            enemiesRemainingInWave--;
+            count--;
 
             yield return new WaitForSeconds(spawnTime);
         }
 
-        // If there are no enemies remaining, start the next wave
         currentWave++;
         if (currentWave < totalWaves)
         {
@@ -59,29 +60,22 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator StartNextWave()
     {
-        yield return new WaitForSeconds(3f); // Delay before starting the next wave
-
+        yield return new WaitForSeconds(3f);
         StartWave();
     }
 
-    // Spawn enemy between left and right bounds
     void SpawnEnemy()
     {
         float minX = leftBound.transform.position.x;
         float maxX = rightBound.transform.position.x;
 
-        // Randomly select a layer
         float targetLayer = spawnLayers[Random.Range(0, spawnLayers.Length)];
 
-        // Check if the maximum number of enemies per layer has been reached
         if (!enemyCounts.ContainsKey(targetLayer) || enemyCounts[targetLayer] < maxEnemiesPerLayer)
         {
-            float randomX = Random.Range(minX, maxX); // Randomize X position between left and right bounds
+            float randomX = Random.Range(minX, maxX);
+            GameObject enemy = Instantiate(enemyPrefab, new Vector2(randomX, targetLayer), Quaternion.identity);
 
-            // Spawn enemy if the condition is met
-            GameObject enemy = Instantiate(Enemy, new Vector2(randomX, targetLayer), Quaternion.identity);
-
-            // Update the count of enemies spawned on this layer
             if (enemyCounts.ContainsKey(targetLayer))
                 enemyCounts[targetLayer]++;
             else
@@ -89,7 +83,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void DecrementEnemyCount(float layer) // Decrement the enemy count when an enemy is destroyed
+    void SpawnBoss()
+    {
+        float bossLayer = spawnLayers[Random.Range(0, spawnLayers.Length)];
+        float randomX = Random.Range(leftBound.transform.position.x, rightBound.transform.position.x);
+        GameObject boss = Instantiate(bossPrefab, new Vector2(randomX, bossLayer), Quaternion.identity);
+    }
+
+    public void DecrementEnemyCount(float layer)
     {
         if (enemyCounts.ContainsKey(layer))
         {
