@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         else if (col.tag == "BossBullet")
         {
             Destroy(col.gameObject);
-            currentHealth -= 2.5f; // Decrease player's current health by 2 for boss bullet
+            currentHealth -= 2.5f; // Decrease player's current health by 5
             Debug.Log("Player hit by boss bullet. Current health: " + currentHealth);
 
             if (currentHealth <= 0)
@@ -110,8 +110,36 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-            // Handle collision with pickup objects
-            if (col.CompareTag("InfiniteAmmoPickup"))
+        // Detect collision with the boss bullet
+        else if (col.tag == "BossBullet2")
+        {
+            Destroy(col.gameObject);
+            currentHealth -= 3f; // Decrease player's current health by 5
+            Debug.Log("Player hit by boss bullet. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
+        }
+
+        // Detect collision with the boss bullet
+        else if (col.tag == "Fireball")
+        {
+            Destroy(col.gameObject);
+            currentHealth -= 2.5f; // Decrease player's current health by 5
+            Debug.Log("Player hit by fireball. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
+        }
+
+        // Handle collision with pickup objects
+        if (col.CompareTag("InfiniteAmmoPickup"))
         {
             // Activate infinite ammo effect
             ActivateInfiniteAmmo();
@@ -119,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(col.gameObject);
             Debug.Log("Infinite Ammo Pickup Collected"); // Debug log pickup collection
         }
-        // Add more conditions for other pickups if needed
     }
 
     // Method to activate infinite ammo pickup effect
