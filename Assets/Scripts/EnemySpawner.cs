@@ -12,14 +12,60 @@ public class EnemySpawner : MonoBehaviour
     public int maxEnemiesPerLayer = 5; // Maximum number of enemies per layer
     private Dictionary<float, int> enemyCounts = new Dictionary<float, int>(); // Track the number of enemies per layer
 
+    // Wave parameters
+    private int currentWave = 0;
+    public int totalWaves = 3;
+    private int[] waveEnemyCounts = { 10, 20, 30 };
+
+    // Number of enemies remaining in the current wave
+    private int enemiesRemainingInWave;
+
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", spawnTime, spawnTime); // Spawn the enemy after a delay and repeat
+        StartWave();
+    }
+
+    void StartWave()
+    {
+        Debug.Log("Wave " + (currentWave + 1) + " begins!"); // Debug log indicating the start of a new wave
+
+        enemiesRemainingInWave = waveEnemyCounts[currentWave];
+
+        StartCoroutine(SpawnEnemies());
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        while (enemiesRemainingInWave > 0)
+        {
+            SpawnEnemy();
+            enemiesRemainingInWave--;
+
+            yield return new WaitForSeconds(spawnTime);
+        }
+
+        // If there are no enemies remaining, start the next wave
+        currentWave++;
+        if (currentWave < totalWaves)
+        {
+            StartCoroutine(StartNextWave());
+        }
+        else
+        {
+            Debug.Log("All waves completed!");
+        }
+    }
+
+    IEnumerator StartNextWave()
+    {
+        yield return new WaitForSeconds(3f); // Delay before starting the next wave
+
+        StartWave();
     }
 
     // Spawn enemy between left and right bounds
-    public void SpawnEnemy()
+    void SpawnEnemy()
     {
         float minX = leftBound.transform.position.x;
         float maxX = rightBound.transform.position.x;
@@ -42,6 +88,7 @@ public class EnemySpawner : MonoBehaviour
                 enemyCounts[targetLayer] = 1;
         }
     }
+
     public void DecrementEnemyCount(float layer) // Decrement the enemy count when an enemy is destroyed
     {
         if (enemyCounts.ContainsKey(layer))
