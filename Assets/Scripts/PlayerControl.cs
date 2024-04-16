@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement control
     public float moveSpeed;
-    public int maxHealth = 3; // Maximum health of the player
-    int currentHealth; // Current health of the player
+    public float maxHealth = 3; // Maximum health of the player
+    float currentHealth; // Current health of the player
     public int maxBullets = 30; // Maximum number of bullets
     int remainingBullets; // Number of bullets remaining
     Rigidbody2D rb;
@@ -84,8 +84,24 @@ public class PlayerMovement : MonoBehaviour
         if (col.tag == "EnemyBullet")
         {
             Destroy(col.gameObject);
-            currentHealth--; // Decrease player's current health
+            currentHealth -= 1; // Decrease player's current health
             Debug.Log("Player hit by enemy bullet. Current health: " + currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject); // Destroy the player if health reaches zero
+                Debug.Log("Player ship destroyed.");
+            }
+
+
+        }
+
+        // Detect collision with the boss bullet
+        else if (col.tag == "BossBullet")
+        {
+            Destroy(col.gameObject);
+            currentHealth -= 2.5f; // Decrease player's current health by 2 for boss bullet
+            Debug.Log("Player hit by boss bullet. Current health: " + currentHealth);
 
             if (currentHealth <= 0)
             {
@@ -94,8 +110,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Handle collision with pickup objects
-        if (col.CompareTag("InfiniteAmmoPickup"))
+            // Handle collision with pickup objects
+            if (col.CompareTag("InfiniteAmmoPickup"))
         {
             // Activate infinite ammo effect
             ActivateInfiniteAmmo();

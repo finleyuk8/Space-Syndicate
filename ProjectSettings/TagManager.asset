@@ -8,6 +8,7 @@ TagManager:
   - PlayerBullet
   - EnemyBullet
   - InfiniteAmmoPickup
+  - BossBullet
   layers:
   - Default
   - TransparentFX
