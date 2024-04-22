@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; // Add TextMeshPro namespace
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject PlayerBullet;
     public GameObject BulletPos;
     public float moveSpeed;
-    public float maxHealth = 3; // Maximum health of the player
-    float currentHealth; // Current health of the player
-    public int maxBullets = 30; // Maximum number of bullets
-    int remainingBullets; // Number of bullets remaining
+    public TextMeshProUGUI BulletsText; // Change Text to TextMeshProUGUI
+    public float maxHealth = 3;
+    float currentHealth;
+    public int maxBullets = 30;
+    int remainingBullets;
     Rigidbody2D rb;
     Vector2 moveDirection;
 
@@ -27,59 +28,61 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth; // set the current health to the maximum health
-        remainingBullets = maxBullets; // set the remaining bullets to the maximum bullets
-        // Hide the infinite ammo canvas at start
+        currentHealth = maxHealth;
+        remainingBullets = maxBullets;
+        UpdateBulletsText(); // Update bullets text using TextMeshPro
         infiniteAmmoCanvas.SetActive(false);
     }
+
+    void UpdateBulletsText()
+    {
+        BulletsText.text = remainingBullets.ToString(); // Update the bullets text
+    }
+
     void Update()
     {
         InputManagement();
 
-        // Shoot bullet upon pressing left mouse button if player has bullets or infinite ammo
         if (Input.GetMouseButtonDown(0) && (remainingBullets > 0 || hasInfiniteAmmo))
         {
             GameObject bullet = Instantiate(PlayerBullet);
-            bullet.transform.position = BulletPos.transform.position; // Set the bullet's initial position
+            bullet.transform.position = BulletPos.transform.position;
 
             if (!hasInfiniteAmmo)
-                remainingBullets--; // Reduce remaining bullets only if not in infinite ammo mode
-
-            Debug.Log("Remaining Bullets: " + remainingBullets); // Debug log remaining bullets count
+                remainingBullets--;
+            UpdateBulletsText();
+            Debug.Log("Remaining Bullets: " + remainingBullets);
         }
 
-        // Update infinite ammo duration
         if (hasInfiniteAmmo)
         {
             currentInfiniteAmmoTime -= Time.deltaTime;
             if (currentInfiniteAmmoTime <= 0)
             {
                 hasInfiniteAmmo = false;
-                // Reset the player's ammo to a default value
             }
             else
             {
-                Debug.Log("Infinite Ammo Active. Time Remaining: " + currentInfiniteAmmoTime); // Debug log infinite ammo status and remaining time
+                Debug.Log("Infinite Ammo Active. Time Remaining: " + currentInfiniteAmmoTime);
             }
         }
 
-        // Show or hide the infinite ammo canvas based on hasInfiniteAmmo
         infiniteAmmoCanvas.SetActive(hasInfiniteAmmo);
     }
 
     private void FixedUpdate()
     {
-        Move(); // Move the player
+        Move();
     }
 
-    void InputManagement() // Get the input from the player
+    void InputManagement()
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
-    void Move() // Move the player
+    void Move()
     {
         rb.velocity = moveDirection * moveSpeed;
     }
@@ -186,7 +189,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void AddBullets(int amount)
     {
-        remainingBullets += amount; // Add bullets to the player's remaining bullets
+        remainingBullets += amount;
+        UpdateBulletsText(); 
     }
     public void RestoreHealth(float amount)
     {
