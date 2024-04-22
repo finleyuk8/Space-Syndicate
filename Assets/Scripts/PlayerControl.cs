@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,12 +19,18 @@ public class PlayerMovement : MonoBehaviour
     bool hasInfiniteAmmo = false;
     float infiniteAmmoDuration = 15f;
     float currentInfiniteAmmoTime = 0f;
+
+    // Canvas for infinite ammo
+    public GameObject infiniteAmmoCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth; // set the current health to the maximum health
         remainingBullets = maxBullets; // set the remaining bullets to the maximum bullets
+        // Hide the infinite ammo canvas at start
+        infiniteAmmoCanvas.SetActive(false);
     }
     void Update()
     {
@@ -55,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Infinite Ammo Active. Time Remaining: " + currentInfiniteAmmoTime); // Debug log infinite ammo status and remaining time
             }
         }
+
+        // Show or hide the infinite ammo canvas based on hasInfiniteAmmo
+        infiniteAmmoCanvas.SetActive(hasInfiniteAmmo);
     }
 
     private void FixedUpdate()
@@ -134,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (col.tag == "EnemyShip")
         {
-            
+
             currentHealth -= 10f; // Decrease player's current health by 20
             Debug.Log("Player hit by enemy ship. Current health: " + currentHealth);
 
@@ -163,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             // Activate infinite ammo effect
             ActivateInfiniteAmmo();
             Destroy(col.gameObject);
-            Debug.Log("Infinite Ammo Pickup Collected"); 
+            Debug.Log("Infinite Ammo Pickup Collected");
         }
     }
 
@@ -172,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         hasInfiniteAmmo = true;
         currentInfiniteAmmoTime = infiniteAmmoDuration;
-        Debug.Log("Infinite Ammo Activated"); 
+        Debug.Log("Infinite Ammo Activated");
     }
     public void AddBullets(int amount)
     {

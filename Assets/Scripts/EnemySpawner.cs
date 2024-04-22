@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class EnemySpawner : MonoBehaviour
     public int totalWaves = 3; // Total number of waves
     private int[] waveEnemyCounts = { 10, 20, 30 }; // Number of enemies to spawn in each wave
 
+    public Sprite[] waveSprites; // Array of sprites representing each wave
+    public Image waveImage; // Reference to the UI image displaying wave information
+
     void Start()
     {
         StartWave();
@@ -24,7 +28,11 @@ public class EnemySpawner : MonoBehaviour
 
     void StartWave()
     {
-        Debug.Log("Wave " + (currentWave + 1) + " begins!"); 
+        Debug.Log("Wave " + (currentWave + 1) + " begins!");
+
+        // Show the wave image corresponding to the current wave
+        waveImage.enabled = true;
+        waveImage.sprite = waveSprites[currentWave];
 
         int enemyCount = waveEnemyCounts[currentWave]; // Get the number of enemies to spawn in the current wave
 
@@ -60,8 +68,11 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator StartNextWave() // Coroutine to start the next wave
     {
+        // Hide the wave image before starting the next wave
+        waveImage.enabled = false;
+
         yield return new WaitForSeconds(3f); // Wait for 3 seconds before starting the next wave
-        StartWave(); 
+        StartWave();
     }
 
     void SpawnEnemy()
