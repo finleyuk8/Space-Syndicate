@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Add TextMeshPro namespace
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject PlayerBullet;
     public GameObject BulletPos;
     public float moveSpeed;
-    public TextMeshProUGUI BulletsText; // Change Text to TextMeshProUGUI
+    public TextMeshProUGUI BulletsText;
     public float maxHealth = 3;
     float currentHealth;
     public int maxBullets = 30;
