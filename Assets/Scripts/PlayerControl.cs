@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public TextMeshProUGUI BulletsText;
     public float maxHealth = 3;
-    float currentHealth;
+    public float currentHealth;
     public int maxBullets = 30;
     int remainingBullets;
     Rigidbody2D rb;

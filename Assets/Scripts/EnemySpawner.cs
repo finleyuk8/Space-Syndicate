@@ -12,15 +12,14 @@ public class EnemySpawner : MonoBehaviour
     public GameObject rightBound;
     public float[] spawnLayers; // Y positions of the layers where enemies can spawn
     public int maxEnemiesPerLayer = 5; // Maximum number of enemies that can spawn in a layer
-    private Dictionary<float, int> enemyCounts = new Dictionary<float, int>(); // Dictionary to store the number of enemies in each layer
+    private Dictionary<float, int> enemyCounts = new Dictionary<float, int>(); //stores the number of enemies in each layer
 
     private int currentWave = 0; // Current wave number
     public int totalWaves = 3; // Total number of waves
     private int[] waveEnemyCounts = { 10, 20, 30 }; // Number of enemies to spawn in each wave
 
-    public Sprite[] waveSprites; // Array of sprites representing each wave
-    public Image waveImage; // Reference to the UI image displaying wave information
-
+    public Sprite[] waveSprites; // Array of sprites to chose from
+    public Image waveImage; // To store wave image
     void Start()
     {
         StartWave();
