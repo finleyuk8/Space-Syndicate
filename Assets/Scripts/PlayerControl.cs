@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Infinite ammo control
     bool hasInfiniteAmmo = false;
-    float infiniteAmmoDuration = 15f;
+    float infiniteAmmoDuration = 7.5f;
     float currentInfiniteAmmoTime = 0f;
 
     // Canvas for infinite ammo
