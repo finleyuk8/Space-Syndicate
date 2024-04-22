@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 681564644110985554, guid: fb192542d69e9724f85dce3d85aac728, type: 3}
-  minFireRate: 1
+  minFireRate: 0.5
   maxFireRate: 2
 --- !u!1 &6217877372101034393
 GameObject:
@@ -341,5 +341,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 681564644110985554, guid: fb192542d69e9724f85dce3d85aac728, type: 3}
-  minFireRate: 1
+  minFireRate: 0.5
   maxFireRate: 2

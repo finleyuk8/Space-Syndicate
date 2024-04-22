@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 6299462371568563251, guid: bf87222b4c9e67f49affb46ce73764dc, type: 3}
-  minFireRate: 1.5
-  maxFireRate: 3
+  minFireRate: 0.5
+  maxFireRate: 2
 --- !u!1 &2840456566272718024
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,5 +341,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 58025280385718776, guid: 534ab1f824b0fcd4294e835a76961824, type: 3}
-  minFireRate: 1.5
-  maxFireRate: 3
+  minFireRate: 0.5
+  maxFireRate: 2
