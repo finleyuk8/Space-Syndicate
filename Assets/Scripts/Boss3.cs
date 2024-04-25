@@ -13,8 +13,8 @@ public class Boss3 : MonoBehaviour
     public GameObject Explosion;
     private float layer; // Store the Y position of the layer the enemy spawns in
 
-    private float dropTimer = 0f; // Timer for dropping behavior
-    private bool dropping = false; // Flag to indicate if the enemy is dropping
+    private float dropTimer = 0f; // Timer for dropping
+    private bool dropping = false; // indicate if the enemy is dropping
 
     private void Awake()
     {

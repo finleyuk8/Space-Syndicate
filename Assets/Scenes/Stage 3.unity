@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 576546419}
   - component: {fileID: 576546418}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: Music Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1550,8 +1550,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.559, y: 0.263}
-  m_SizeDelta: {x: 25.5804, y: 32.8832}
+  m_AnchoredPosition: {x: 1.7808, y: 0.263}
+  m_SizeDelta: {x: 40.3636, y: 32.8832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1175119013
 MonoBehaviour:
@@ -2592,5 +2592,5 @@ SceneRoots:
   - {fileID: 2136336963}
   - {fileID: 647962279}
   - {fileID: 660820658}
-  - {fileID: 1786973499}
   - {fileID: 576546419}
+  - {fileID: 1786973499}

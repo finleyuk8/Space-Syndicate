@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -98,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
 
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
         }
@@ -128,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
         }
@@ -141,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
         }
@@ -153,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
         }
@@ -166,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject); // Destroy the player if health reaches zero
+                SceneManager.LoadScene(9); //loads the game over screen
                 Debug.Log("Player ship destroyed.");
             }
         }

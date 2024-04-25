@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
@@ -23,6 +24,21 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartWave();
+    }
+
+    void Update()
+    {
+        // Check if all waves completed and no enemies left
+        if (currentWave >= totalWaves && GameObject.FindGameObjectsWithTag("EnemyShip").Length == 0)
+        {
+            // Switch to the next scene in the build index
+            LoadNextScene();
+        }
+    }
+    void LoadNextScene()
+    {
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1; // Get the index of the next scene
+        SceneManager.LoadScene(nextSceneIndex); // Load the next scene
     }
 
     void StartWave()

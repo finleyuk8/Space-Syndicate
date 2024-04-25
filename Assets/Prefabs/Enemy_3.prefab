@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDestination: {fileID: 0}
   moveSpeed: 10
-  maxHealth: 7
+  maxHealth: 10
   Explosion: {fileID: 78461371900559152, guid: 94570456aa0eb45449e9fb30f93b617a, type: 3}
   BulletPickupPrefab: {fileID: 436026295648926411, guid: c62f4495091ca3a47854e5e9344e689d, type: 3}
   HealthPickupPrefab: {fileID: 7490525019598880652, guid: 94be8b4e475804148a25a4a80b0e500e, type: 3}
